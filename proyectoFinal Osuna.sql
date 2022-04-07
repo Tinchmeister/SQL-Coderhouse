@@ -230,6 +230,34 @@ BEGIN
     
 END //
 
+
+-- FUNCTIONS
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `cambiar_nombre_cliente`(idNombre INT, nombreNuevo VARCHAR(50)) RETURNS int
+    DETERMINISTIC
+BEGIN  
+
+  UPDATE cliente SET cliente.Nombre = nombreNuevo WHERE cliente.idCliente = idNombre; 	
+
+	RETURN 1;
+
+END
+
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `contar_pais`(paisbuscar CHAR(30)) RETURNS int
+    DETERMINISTIC
+BEGIN
+	DECLARE numero INT;
+    SELECT COUNT(*) 
+    INTO numero 
+    FROM cliente 
+    WHERE pais = paisbuscar;
+
+RETURN numero;
+
+END
+
+
 -- TRIGGERS/LOGS
 
 CREATE TABLE log_movimientos_cliente (
